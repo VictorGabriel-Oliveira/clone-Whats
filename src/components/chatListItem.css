@@ -4,6 +4,9 @@
     align-items: center;
     height: 70px;
 }
+.chatList-items.active{
+    background-color: #ebebeb;
+}
 
 .chaList--avatar{
     height: 50px;

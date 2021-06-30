@@ -1,6 +1,8 @@
 import { useState } from 'react';
 
 import ChatListItem  from './components/ChatListItem'
+import ChatIntro from './components/ChatIntro';
+import ChatWindow from './components/ChatWindow'
 
 import DonutLargeIcon from '@material-ui/icons/DonutLarge';
 import ChatIcon from '@material-ui/icons/Chat';
@@ -8,10 +10,30 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import SearchIcon from '@material-ui/icons/Search';
 
 import './app.css'
+
+
 function App() {
 
-    const [chatList, setChatList] = useState([{},{},{},{}])
-
+    const [chatList, setChatList] = useState([
+        {
+            id:1,
+            title:'Victor Gabriel',
+            image:'https://www.w3schools.com/howto/img_avatar2.png'
+        },{
+            id:2,
+            title:'Manuh',
+            image:'https://www.w3schools.com/howto/img_avatar2.png'
+        },{
+            id:3,
+            title:'Testando',
+            image:'https://www.w3schools.com/howto/img_avatar2.png'
+        },{
+            id:4,
+            title:'Sou eu fdp kk',
+            image:'https://www.w3schools.com/howto/img_avatar2.png'
+        }
+    ])
+    const [activeChat, setActiveChat] = useState({})
     return (
         <div className="App">
             <aside>
@@ -41,14 +63,28 @@ function App() {
                     {
                         chatList.map((item, key)=>{
                             return(
-                                <ChatListItem  key={key}/>
+                                <ChatListItem  
+                                    key={key}
+                                    data={item}
+                                    active={activeChat.id === chatList[key].id}
+                                    onClick={()=>{
+                                        setActiveChat(chatList[key])
+                                    }}
+                                
+                                />
                             )
                         })
                     }
                 </div>
             </aside>
             <main>
-                ...
+                {
+                    activeChat.id !== undefined && <ChatWindow/> 
+                }
+                {
+                    activeChat.id === undefined &&  <ChatIntro/>
+                }
+                
             </main>
         </div>
     );
