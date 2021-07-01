@@ -8,11 +8,12 @@ import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
 import CloseIcon from '@material-ui/icons/Close';
 import SendIcon from '@material-ui/icons/Send';
 import MicIcon from '@material-ui/icons/Mic';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import MessageItem from './MessageItem';
 
 
 
-export default function ChatWindow (){
+export default function ChatWindow (params){
 
     let recognition = null
     let SpeechRecognition = window.SpeechRecognition  || window.webkitSpeechRecognition;
@@ -27,6 +28,96 @@ export default function ChatWindow (){
     const [text, setText]= useState('')
 
     const [listen, setListen]= useState(false)
+    const [messageList, setMessageList] = useState([
+        {
+            author: 'victor',
+            body:'oi, bom dia!'
+        },
+        {
+            author:'gabriel',
+            body:'oii, Como vai ?'
+        },
+        {
+            author: 'victor',
+            body:'oi, bom dia!'
+        },
+        {
+            author:'gabriel',
+            body:'oii, Como vai ?'
+        },
+        {
+            author: 'victor',
+            body:'oi, bom dia!'
+        },
+        {
+            author:'gabriel',
+            body:'oii, Como vai ?'
+        },
+        {
+            author: 'victor',
+            body:'oi, bom dia!'
+        },
+        {
+            author:'gabriel',
+            body:'oii, Como vai ?'
+        },
+        {
+            author: 'victor',
+            body:'oi, bom dia!'
+        },
+        {
+            author:'gabriel',
+            body:'oii, Como vai ?'
+        },
+        {
+            author: 'victor',
+            body:'oi, bom dia!'
+        },
+        {
+            author:'gabriel',
+            body:'oii, Como vai ?'
+        },
+        {
+            author: 'victor',
+            body:'oi, bom dia!'
+        },
+        {
+            author:'gabriel',
+            body:'oii, Como vai ?'
+        },
+        {
+            author: 'victor',
+            body:'oi, bom dia!'
+        },
+        {
+            author:'gabriel',
+            body:'oii, Como vai ?'
+        },
+        {
+            author: 'victor',
+            body:'oi, bom dia!'
+        },
+        {
+            author:'gabriel',
+            body:'oii, Como vai ?'
+        },
+        {
+            author: 'victor',
+            body:'oi, bom dia!'
+        },
+        {
+            author:'gabriel',
+            body:'oii, Como vai ?'
+        },
+    ])
+
+    const body = useRef()
+
+    useEffect(()=>{
+        if(body.current.scrollHeight > body.current.offsetHeight){
+            body.current.scrollTop = body.current.scrollHeight - body.current.offsetHeight
+        }
+    },[messageList])
 
     function handleEmojiClick(event , emojiObject){
             setText( text + emojiObject.emoji)
@@ -87,7 +178,14 @@ export default function ChatWindow (){
                     </div>
                 </div>
             </div>
-            <div className="chatWindow--main">
+            <div ref={body} className="chatWindow--main">
+                {
+                    messageList.map((item,key)=>{
+                        return(
+                            <MessageItem key={key} data={item} user={params.user} />
+                        )
+                    })
+                }
 
             </div>
             <div className="emoji--area" style={{height: emojiOpen ? "200px" : "0px"}}>

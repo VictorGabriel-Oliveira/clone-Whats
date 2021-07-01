@@ -34,9 +34,21 @@ function App() {
         }
     ])
     const [activeChat, setActiveChat] = useState({})
+    const [user,setUser] = useState(
+        {
+            id:'gabriel',
+            avatar: 'https://www.w3schools.com/howto/img_avatar2.png'
+        } 
+    )
+
+
+
+
     return (
+        
         <div className="App">
             <aside>
+                
                 <header>
                     <img className="header--avatar" src="https://www.w3schools.com/howto/img_avatar2.png" alt='user image' />
                     <div className='header--buttons'>
@@ -79,7 +91,7 @@ function App() {
             </aside>
             <main>
                 {
-                    activeChat.id !== undefined && <ChatWindow/> 
+                    activeChat.id !== undefined && <ChatWindow user={user}/> 
                 }
                 {
                     activeChat.id === undefined &&  <ChatIntro/>
