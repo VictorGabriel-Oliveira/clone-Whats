@@ -1,0 +1,70 @@
+.newchat{
+    border-right: 1px solid #DDD;
+    width: 35%;
+    max-width: 452px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px #ddd;
+    transition: all ease 0.5s;
+}
+.newchat--header{
+    display: flex;
+    background-color: #00bfa5;
+    align-items: center;
+    padding: 60px 15px 15px 15px;
+}
+
+.newchat-backButtom{
+    height: 40;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.header--title{
+    font-size: 19px;
+    height: 40px;
+    line-height: 40px;
+    flex:1;
+    font-weight: bold;
+    color: #fff;
+    margin-left: 20px;
+}
+.newchat--list{
+    flex: 1;
+    overflow-y: auto;
+}
+.newchat--list::-webkit-scrollbar{
+    width: 6px;
+    height: 6px;
+}
+.newchat--list::-webkit-scrollbar-thumb{
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.newchat--item{
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    cursor: pointer;
+
+}
+.newchat--item:hover{
+    background-color: #f5f5f5;
+}
+.newchat--avatar{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.newchat--name{
+    font-size: 17px;
+    color: black;
+}
