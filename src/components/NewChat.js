@@ -1,41 +1,21 @@
-import { useState} from 'react'
+import { useEffect, useState} from 'react'
 import './newChat.css'
 
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import api from '../api';
 
 export default function (params){
-    const [chatList, setChatList] = useState([
-        {
-            id:'1234',
-            name:'Victor Gavriel ',
-            avatar:'https://www.w3schools.com/howto/img_avatar2.png'
-        },
-        {
-            id:'1234',
-            name:'Victor Gavriel de Oliveira Abreu',
-            avatar:'https://www.w3schools.com/howto/img_avatar2.png'
-        },
-        {
-            id:'1234',
-            name:'Victor Gavriel de Oliveira Abreu',
-            avatar:'https://www.w3schools.com/howto/img_avatar2.png'
-        },
-        {
-            id:'1234',
-            name:'Victor Gavriel de Oliveira Abreu',
-            avatar:'https://www.w3schools.com/howto/img_avatar2.png'
-        },
-        {
-            id:'1234',
-            name:'Victor Gavriel de Oliveira Abreu',
-            avatar:'https://www.w3schools.com/howto/img_avatar2.png'
-        },
-        {
-            id:'1234',
-            name:'Victor Gavriel de Oliveira Abreu',
-            avatar:'https://www.w3schools.com/howto/img_avatar2.png'
-        },
-    ])
+    const [chatList, setChatList] = useState([])
+
+    useEffect(()=>{
+        async function getList(){
+            if(params.user){
+                let result = await api.getContactList(params.user.id)
+                setChatList(result)
+            }
+        }
+        getList()
+    },[params.user])
 
     function handleCloseNewChat(){
         params.setShowNewChat(false)
@@ -45,7 +25,7 @@ export default function (params){
         <div className='newchat' style={{left: params.showNewChat ? "0" : '-452px'}}>
             <div className="newchat--header">
 
-                <div onClick={handleCloseNewChat} class="newchat-backButtom">
+                <div onClick={handleCloseNewChat} className="newchat-backButtom">
                     <ArrowBackIcon style={{color:"#fff"}}/>
                 </div>
                 <div className="header--title">
@@ -56,6 +36,7 @@ export default function (params){
 
             <div className="newchat--list">
                 {chatList.map((item,key)=>{
+                    
                     return(
                         <div className="newchat--item">
                             <img className="newchat--avatar" src={item.avatar} alt={key}/>
