@@ -12,30 +12,14 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import SearchIcon from '@material-ui/icons/Search';
 
 import './app.css'
+import api from './api';
 
 
 function App() {
 
-    const [chatList, setChatList] = useState([
-        {
-            id:1,
-            title:'Victor Gabriel',
-            image:'https://www.w3schools.com/howto/img_avatar2.png'
-        },{
-            id:2,
-            title:'Manuh',
-            image:'https://www.w3schools.com/howto/img_avatar2.png'
-        },{
-            id:3,
-            title:'Testando',
-            image:'https://www.w3schools.com/howto/img_avatar2.png'
-        },{
-            id:4,
-            title:'Sou eu fdp kk',
-            image:'https://www.w3schools.com/howto/img_avatar2.png'
-        }
-    ])
+    const [chatList, setChatList] = useState([])
     const [activeChat, setActiveChat] = useState({})
+
     const [user,setUser] = useState(null)
 
     const [showNewChat, setShowNewChat]= useState(false)
@@ -50,6 +34,9 @@ function App() {
             name:user.displayName,
             avatar:user.photoURL      
         }
+
+        await api.addUser(newUser)
+
 
         setUser(newUser)
 
@@ -75,7 +62,7 @@ function App() {
             <aside>
 
                 <header>
-                    <img className="header--avatar" src="https://www.w3schools.com/howto/img_avatar2.png" alt='user image' />
+                    <img className="header--avatar" src={user.avatar}alt='user image' />
                     <div className='header--buttons'>
                         <div className="header--btn">
                             <DonutLargeIcon style={{color:"#919191"}}/>
