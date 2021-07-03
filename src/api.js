@@ -47,7 +47,7 @@ export default {
         database.collection('users').doc(user.id).update({
             chats: firebase.firestore.FieldValue.arrayUnion({
                 chatId: newchat.id,
-                title: user2.id,
+                title: user2.name,
                 image:user2.avatar,
                 with: user2.id
             })
@@ -56,10 +56,23 @@ export default {
         database.collection('users').doc(user2.id).update({
             chats: firebase.firestore.FieldValue.arrayUnion({
                 chatId: newchat.id,
-                title: user.id,
+                title: user.name,
                 image:user.avatar,
                 with: user.id
             })
         })
+    },
+    onchatList: function (userId, setChatList){
+        return database.collection('users').doc(userId).onSnapshot((doc)=>{
+            if(doc.exists){
+                let data = doc.data()
+                console.log(data.chats)
+                if(data.chats){
+                    setChatList(data.chats)
+                }
+
+            }
+        })
+
     }
 }

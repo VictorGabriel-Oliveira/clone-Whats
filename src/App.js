@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import ChatListItem  from './components/ChatListItem'
 import ChatIntro from './components/ChatIntro';
@@ -41,6 +41,14 @@ function App() {
         setUser(newUser)
 
     } 
+    useEffect(()=>{
+
+        if(user !== null){
+           let unsubscribe = api.onchatList(user.id, setChatList)
+           return unsubscribe
+        }
+
+    },[user])
 
     if(!user){
 

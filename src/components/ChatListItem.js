@@ -18,7 +18,7 @@ export default function ChatListItem(params){
                 </div>
                 <div className="chatList--item">
                     <div className="chatList--last-msg">
-                        <p>Oola, como vai?</p>
+                        <p>{params.data.lastMessage}</p>
                     </div>
                 </div>
             </div>
