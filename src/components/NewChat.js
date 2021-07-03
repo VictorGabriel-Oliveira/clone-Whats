@@ -20,6 +20,12 @@ export default function (params){
     function handleCloseNewChat(){
         params.setShowNewChat(false)
     }
+
+    async function addNewChat(user2){
+        await api.addNewChat(params.user,user2)
+
+        handleCloseNewChat()
+    }
     
     return (
         <div className='newchat' style={{left: params.showNewChat ? "0" : '-452px'}}>
@@ -38,7 +44,7 @@ export default function (params){
                 {chatList.map((item,key)=>{
                     
                     return(
-                        <div className="newchat--item">
+                        <div onClick={()=>addNewChat(item)} className="newchat--item">
                             <img className="newchat--avatar" src={item.avatar} alt={key}/>
                             <div className="newchat--name">
                                 {item.name}
