@@ -67,7 +67,22 @@ export default {
             if(doc.exists){
                 let data = doc.data()
                 if(data.chats){
-                    setChatList(data.chats)
+                    let chats = [...data.chats]
+
+                    chats.sort((a,b)=>{
+                        if (a.lastMessageDate === undefined){
+                            return -1
+                        }
+                        if (a.lastMessageDate.seconds < b.lastMessageDate.seconds){
+                            return 1
+                        }
+                        else{
+                            return -1
+                        }
+                    })
+
+
+                    setChatList(chats)
                 }
 
             }
@@ -99,7 +114,7 @@ export default {
             let user = await database.collection('users').doc(users[i]).get()
             let userData = user.data()
             let chats = [...userData.chats]
-            
+
             for(let e = 0 ;e < chats.length ; e ++){
                 if (chats[e].chatId === chatData.chatId){
                     chats[e].lastMessage = body
