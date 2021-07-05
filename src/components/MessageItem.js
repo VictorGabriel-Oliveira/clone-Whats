@@ -1,7 +1,20 @@
-import { PanoramaSharp } from '@material-ui/icons'
+import { useEffect, useState } from 'react'
 import './messageItem.css'
 
 export default function (params){
+    const [time, setTime] = useState('')
+
+    useEffect(()=>{
+        if(params.data.date> 0){
+            let d = new Date(params.data.date.seconds * 1000)
+            let hours = d.getHours()
+            let minutes = d.getMinutes()
+           hours = hours < 10 ? '0'+hours : hours
+           minutes = minutes < 10 ? '0'+minutes : minutes 
+           
+           setTime(`${hours}:${minutes}`)
+        }
+    },[params.data])
     return (
         <div    
             className="messageLine"
@@ -14,7 +27,7 @@ export default function (params){
                     {params.data.body}
                 </div>
                 <div className="messageData">
-                    19:00
+                    {time}
                 </div>
             </div>
         </div>

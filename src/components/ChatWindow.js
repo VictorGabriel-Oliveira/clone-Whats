@@ -10,6 +10,7 @@ import SendIcon from '@material-ui/icons/Send';
 import MicIcon from '@material-ui/icons/Mic';
 import { useEffect, useRef, useState } from 'react';
 import MessageItem from './MessageItem';
+import api from '../api'
 
 
 
@@ -28,88 +29,8 @@ export default function ChatWindow (params){
     const [text, setText]= useState('')
 
     const [listen, setListen]= useState(false)
-    const [messageList, setMessageList] = useState([
-        {
-            author: 'victor',
-            body:'oi, bom dia!'
-        },
-        {
-            author:'gabriel',
-            body:'oii, Como vai ?'
-        },
-        {
-            author: 'victor',
-            body:'oi, bom dia!'
-        },
-        {
-            author:'gabriel',
-            body:'oii, Como vai ?'
-        },
-        {
-            author: 'victor',
-            body:'oi, bom dia!'
-        },
-        {
-            author:'gabriel',
-            body:'oii, Como vai ?'
-        },
-        {
-            author: 'victor',
-            body:'oi, bom dia!'
-        },
-        {
-            author:'gabriel',
-            body:'oii, Como vai ?'
-        },
-        {
-            author: 'victor',
-            body:'oi, bom dia!'
-        },
-        {
-            author:'gabriel',
-            body:'oii, Como vai ?'
-        },
-        {
-            author: 'victor',
-            body:'oi, bom dia!'
-        },
-        {
-            author:'gabriel',
-            body:'oii, Como vai ?'
-        },
-        {
-            author: 'victor',
-            body:'oi, bom dia!'
-        },
-        {
-            author:'gabriel',
-            body:'oii, Como vai ?'
-        },
-        {
-            author: 'victor',
-            body:'oi, bom dia!'
-        },
-        {
-            author:'gabriel',
-            body:'oii, Como vai ?'
-        },
-        {
-            author: 'victor',
-            body:'oi, bom dia!'
-        },
-        {
-            author:'gabriel',
-            body:'oii, Como vai ?'
-        },
-        {
-            author: 'victor',
-            body:'oi, bom dia!'
-        },
-        {
-            author:'gabriel',
-            body:'oii, Como vai ?'
-        },
-    ])
+    const [messageList, setMessageList] = useState([])
+    const [users, setUsers] = useState([])
 
     const body = useRef()
 
@@ -118,6 +39,11 @@ export default function ChatWindow (params){
             body.current.scrollTop = body.current.scrollHeight - body.current.offsetHeight
         }
     },[messageList])
+    useEffect(()=>{
+        setMessageList([])
+        let unsubscribe = api.onChatContent(params.data.chatId, setMessageList, setUsers)
+        return unsubscribe
+    },[params.data.chatId])
 
     function handleEmojiClick(event , emojiObject){
             setText( text + emojiObject.emoji)
@@ -129,10 +55,6 @@ export default function ChatWindow (params){
     }
     function handleCloseEmojiClick(){
         setEmojiOpen(false)
-
-    }
-
-    function handleSendClick(){
 
     }
 
@@ -153,6 +75,20 @@ export default function ChatWindow (params){
         recognition.start()
     }
 
+    function handleInputKey(event){
+        if (event.keyCode === 13){
+
+            handleSendClick()
+        }
+    }
+
+    function handleSendClick(){
+        if (text !== ''){
+            api.sendMessageclick(params.data, params.user.id, 'text', text, users)
+            setText('')
+            setEmojiOpen(false)
+        }
+    }
 
 
 
@@ -160,9 +96,9 @@ export default function ChatWindow (params){
         <div className="chatWindow">
             <div className="chatWindow--header">
                 <div className="header-info">
-                    <img className="avatar" src="https://www.w3schools.com/howto/img_avatar2.png" alt=""/>
+                    <img className="avatar" src={params.data.image} alt=""/>
                     <div className="name">
-                        Victor Gabriel
+                        {params.data.title}
                     </div>
                 </div>
 
@@ -207,7 +143,13 @@ export default function ChatWindow (params){
                    
                 </div>
                 <div className="input--area">
-                    <input value={text} onChange={event =>{ setText(event.target.value)}} type="text" className="chatWindow--input"  placeholder="digite uma mensagen"/>
+                    <input 
+                        value={text}
+                        onChange={event =>{ setText(event.target.value)}}
+                        type="text" className="chatWindow--input"  
+                        placeholder="digite uma mensagen"
+                        onKeyUp={handleInputKey}
+                    />
                 </div>
                
                 <div className="chatWindow--pos">

@@ -111,10 +111,10 @@ function App() {
             </aside>
             <main>
                 {
-                    activeChat.id !== undefined && <ChatWindow user={user}/> 
+                    activeChat.title !== undefined && <ChatWindow user={user} data={activeChat}/> 
                 }
                 {
-                    activeChat.id === undefined &&  <ChatIntro/>
+                    activeChat.title === undefined &&  <ChatIntro/>
                 }
                 
             </main>
