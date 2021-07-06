@@ -1,6 +1,52 @@
 .login{
+    height: 100vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    align-items: center;
     width: 100vw;
+}
+
+.login h2{
+    margin: 0;
+}
+
+button{
+    height: 40px;
+    width: 200px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    cursor: pointer;
+}
+
+#google--btn{
+    background-color: #c50b0b;
+    color: white;
+    border:1px solid  #c50b0b;
+}
+#facebook--btn{
+    background-color: rgb(91, 91, 241);
+    color: white;
+    border: 1px solid rgb(91, 91, 241);
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+}
+
+form input{
+    height: 40px;
+    width: 200px;
+    margin-bottom: 5px;
+}
+
+#submit--btn{
+    background-color: rgb(91, 91, 241);
+    color: white;
+    border: 1px solid rgb(91, 91, 241);
 }

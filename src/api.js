@@ -14,6 +14,15 @@ export default {
         let result = await auth.signInWithPopup(provider)
         return result
     },
+    facebookPopUp: async function (){
+        const facebookProvider = new firebase.auth.FacebookAuthProvider()
+        let result = await auth.signInWithPopup(facebookProvider)
+        return result
+    },
+    emailAndPasswordLoguin: async function (email , password){
+        const result = await auth.signInWithEmailAndPassword(email, password)
+        return result
+    },
     addUser: async function(user){
         await database.collection('users').doc(user.id).set({
             name:user.name,

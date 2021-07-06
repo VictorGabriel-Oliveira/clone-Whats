@@ -41,6 +41,7 @@ function App() {
         setUser(newUser)
 
     } 
+    
     useEffect(()=>{
 
         if(user !== null){
@@ -53,7 +54,7 @@ function App() {
     if(!user){
 
         return (
-            <Login onReceive={handleLoginData}/>
+            <Login onReceive={handleLoginData} />
         )
     }
 
