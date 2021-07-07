@@ -29,18 +29,19 @@ function App() {
     }
 
     async function handleLoginData (user, displayName){
+        const User = await api.getUser(user)
+       
         let newUser = {
             id:user.uid,
-            name:user.displayName ? user.displayName : displayName,
-            avatar:user.photoURL  ? user.photoURL : 'https://www.w3schools.com/howto/img_avatar.png'     
+            name:user.displayName ? user.displayName : displayName ? displayName  : User.name, // bug ta aqui
+            avatar:user.photoURL  ? user.photoURL : User.avatar ? User.avatar : 'https://www.w3schools.com/howto/img_avatar.png'     
         }
 
         await api.addUser(newUser)
-
-
         setUser(newUser)
 
     } 
+   
     
     useEffect(()=>{
 

@@ -34,6 +34,11 @@ export default {
             avatar: user.avatar
         },{merge:true})
     },
+    getUser: async function(user){
+        console.log(user)
+        const result = await database.collection('users').doc(user.uid).get()
+        return result.data()
+    },
     getContactList: async function (userId){
         let ContactList =[]
         
