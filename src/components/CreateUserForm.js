@@ -8,7 +8,7 @@ export default function CreateUserForm ({ setEmail,setDisplayName, setPassword,h
             <input id="password" name="password" type="password" placeholder="digite sua senha" onChange={event=>{ setPassword(event.target.value)}} />
             <button id="submit--btn" type="submit"> Confirmar </button>
         </form>
-        <strong>não tem uma conta <button onClick={handleShowForm} id="form--btn">clique aqui</button> e cadastre-se</strong>
+        <strong>Já tem uma conta ? <button onClick={handleShowForm} id="form--btn">clique aqui</button> e faça o login</strong>
     </div>
    )
 
