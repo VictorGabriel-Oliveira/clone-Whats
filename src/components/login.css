@@ -50,3 +50,17 @@ form input{
     color: white;
     border: 1px solid rgb(91, 91, 241);
 }
+#form--btn{
+    border: none;
+    height: 0px; 
+    width: auto;
+    margin:0;
+    border-radius: 0; 
+    display: inline; 
+    align-items: center; 
+    justify-content: none; 
+    cursor: pointer;
+    background-color: transparent;
+    font-weight: bold;
+    color: rgb(91, 91, 241);
+}

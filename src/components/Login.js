@@ -1,3 +1,5 @@
+import LoginForm from './LoginForm';
+import CreateUserForm from './CreateUserForm';
 import './login.css'
 import Api from '../api'
 import { useState } from 'react'
@@ -9,6 +11,8 @@ export default function Loguin({onReceive}){
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [displayName, setDisplayName] = useState('')
+    const [formLogin, setFormLogin]= useState(true)
 
     async function handleGoogleLogIn(){
        let result = await Api.googlePopup()
@@ -28,14 +32,30 @@ export default function Loguin({onReceive}){
         }
      }
 
-     async function handleEmailLogin(event){
+     async function handleCreateUserWithEmailAndPassword(event){
         event.preventDefault()
-        let result = await Api.emailAndPasswordLoguin(email,password)
+        
+        let result = await Api.createUserWithEmailAndPassword(email,password)
         if(result){
-            onReceive(result.user)
+            onReceive(result.user, displayName)
         }else{
             alert("algo nao de certo")
         }
+     }
+
+     async function handleEmailLogin(event){
+        event.preventDefault()
+        
+        let result = await Api.emailAndPasswordLoguin(email,password)
+        if(result){
+            onReceive(result.user,displayName)
+        }else{
+            alert("algo nao de certo")
+        }
+     }
+
+     function handleShowForm(){
+         setFormLogin(!formLogin)
      }
 
     return(
@@ -44,11 +64,19 @@ export default function Loguin({onReceive}){
             <button id="facebook--btn" onClick={handleFacebookLogIn}> <FacebookIcon style={{color:'#fff'}}/> login com o facebook</button>
             <h2>Faça o login </h2>
             <p>com email e senha</p>
-            <form onSubmit={handleEmailLogin}>
-                <input id="email" name="email" type="text" placeholder="digite seu email" onChange={event =>{setEmail(event.target.value)}} value={email}/>
-                <input id="password" name="password" type="password" placeholder="digite sua senha" onChange={event=>{ setPassword(event.target.value)}} value={password}/>
-                <button id="submit--btn" type="submit"> Confirmar </button>
-            </form>
+            {formLogin ? <LoginForm
+                setEmail={setEmail} 
+                setPassword={setPassword}
+                handleEmailLogin={handleEmailLogin}   
+                handleShowForm={handleShowForm}
+            /> : <CreateUserForm
+                setEmail={setEmail} 
+                setDisplayName={setDisplayName}
+                setPassword={setPassword}
+                handleEmailCreateUser={handleCreateUserWithEmailAndPassword}   
+                handleShowForm={handleShowForm}
+            />}
+            
             
         </div>
     )

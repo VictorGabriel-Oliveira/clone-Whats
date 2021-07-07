@@ -19,6 +19,11 @@ export default {
         let result = await auth.signInWithPopup(facebookProvider)
         return result
     },
+    createUserWithEmailAndPassword: async function(email, password){
+        let user = await  auth.createUserWithEmailAndPassword(email , password)
+        return user
+        
+    },
     emailAndPasswordLoguin: async function (email , password){
         const result = await auth.signInWithEmailAndPassword(email, password)
         return result

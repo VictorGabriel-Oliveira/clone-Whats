@@ -28,11 +28,11 @@ function App() {
         setShowNewChat(true)
     }
 
-    async function handleLoginData (user){
+    async function handleLoginData (user, displayName){
         let newUser = {
             id:user.uid,
-            name:user.displayName,
-            avatar:user.photoURL      
+            name:user.displayName ? user.displayName : displayName,
+            avatar:user.photoURL  ? user.photoURL : 'https://www.w3schools.com/howto/img_avatar.png'     
         }
 
         await api.addUser(newUser)
