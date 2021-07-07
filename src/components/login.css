@@ -21,6 +21,12 @@ button{
     align-items: center;
     justify-content: space-around;
     cursor: pointer;
+
+    transition: filter(0.3s);
+}
+
+button:hover{
+    filter: brightness(0.9);
 }
 
 #google--btn{
