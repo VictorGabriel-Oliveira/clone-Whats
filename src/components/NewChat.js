@@ -28,7 +28,7 @@ export default function (params){
     }
     
     return (
-        <div className='newchat' style={{left: params.showNewChat ? "0" : '-452px'}}>
+        <div className='newchat' style={{left: params.showNewChat ? "0" : '-500px'}}>
             <div className="newchat--header">
 
                 <div onClick={handleCloseNewChat} className="newchat-backButtom">
